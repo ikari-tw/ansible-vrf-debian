@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# can be used as /etc/profile/motd.sh
+# 
+echo "host : $HOSTNAME"
+echo
+ip -4 -o -br a
+echo
+ip route
+echo
+ip vrf show
+echo
+ip route show table {{ vrf_table }}
+echo
+ss -tua
+echo
+ip vrf exec {{ vrf_name }} ping -c 3 -i 0.3 8.8.8.8
+ip vrf exec {{ vrf_name }} ping -c 3 -i 0.3 ikari.fr
+

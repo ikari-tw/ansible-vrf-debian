@@ -1,0 +1,85 @@
+---
+# tasks file for roles/vrf-debian
+
+# classic checks
+
+- name: install iproute2
+  apt:
+    name: iproute2
+    state: latest
+
+# prepare sysctl to our needs
+
+- name: tpl sysctl params
+  template:
+    src: sysctl.conf
+    dest: /etc/sysctl.d/99-vrf.conf
+    owner: root
+    group: root
+    mode: 0644
+
+# vrf files
+
+- name: tpl vrf.service
+  template:
+    src: vrf.service.j2
+    dest: /etc/systemd/system/vrf.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: tpl vrf.sh
+  template:
+    src: vrf.sh.j2
+    dest: /sbin/vrf.sh
+    owner: root
+    group: root
+    mode: 0755
+
+# systemd stuff
+
+- name: enable vrf service systemd
+  systemd:
+    name: vrf
+    enabled: yes
+    masked: no
+
+- name: systemd reload
+  systemd:
+    daemon_reload: yes
+
+# helpfull scripts
+
+- name: tpl netinfo.sh
+  template:
+    src: netinfo.sh.j2
+    dest: /root/netinfo.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: tpl reset.sh
+  template:
+    src: reset.sh
+    dest: /root/reset.sh
+    owner: root
+    group: root
+    mode: 0755
+
+# ssh part
+
+- name: enforce ssh overriding dir
+  file:
+    path: "/etc/systemd/system/ssh.service.d"
+    state: directory
+
+- name: tpl ssh override
+  template:
+    src: ssh.override.conf.j2
+    dest: /etc/systemd/system/ssh.service.d/override.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - reboot_host
+

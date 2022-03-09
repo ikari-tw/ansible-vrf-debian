@@ -1,0 +1,12 @@
+[Unit]
+Description=VRF {{ vrf_name.upper }} REBOOT PROOF
+Before=network-pre.target
+Wants=network-pre.target
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/vrf.sh
+
+[Install]
+WantedBy=multi-user.target
+

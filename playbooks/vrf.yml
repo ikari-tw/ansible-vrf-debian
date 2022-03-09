@@ -1,0 +1,19 @@
+---
+# TEST
+
+- name: TEST
+  gather_facts: yes
+  hosts: "tp6cli"
+  become: true
+
+  tasks:
+
+  - name: vrf role
+    include_role:
+      name: vrf-debian
+    vars:
+      vrf_name: mgmt
+      vrf_table: 99
+      vrf_gw: 192.168.0.254
+      vrf_iface: ens33
+

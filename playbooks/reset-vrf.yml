@@ -1,0 +1,14 @@
+---
+# TEST
+
+- name: RESET VRF
+  gather_facts: yes
+  hosts: "tp6cli"
+  become: true
+
+  tasks:
+
+  - name: vrf reset
+    shell:
+      cmd: sudo /root/reset.sh
+

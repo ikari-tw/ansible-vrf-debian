@@ -1,0 +1,6 @@
+---
+# vars file for roles/vrf-debian
+vrf_name: mgmt
+vrf_table: 99
+vrf_gw: 10.0.0.1
+vrf_iface: eth0

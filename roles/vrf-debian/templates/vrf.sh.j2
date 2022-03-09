@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# /sbin/vrf.sh
+# script to make {{ vrf_name }} vrf up and running after reboot
+#
+
+# public side
+#ip route add 0.0.0.0/0 via 10.0.0.1
+
+# mgmt side
+ip link add {{ vrf_name }} type vrf table {{ vrf_table }}
+ip link set dev {{ vrf_name }} up
+ip route add table {{ vrf_table }} 0.0.0.0/0 via {{ vrf_gw }}
+ip link set dev {{ vrf_iface }} master {{ vrf_name }}
+ip addr add dev {{ vrf_name }} 127.0.0.1/8

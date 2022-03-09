@@ -1,0 +1,12 @@
+#
+# ssh.service
+# make ssh listening inside {{ vrf_name }} vrf only
+#
+
+[Unit]
+After=vrf.target
+
+[Service]
+ExecStart=
+ExecStart=/bin/ip vrf exec {{ vrf_name }} /usr/sbin/sshd -D $SSHD_OPTS
+

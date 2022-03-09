@@ -1,0 +1,7 @@
+# INVENTORY
+
+[all:vars]
+data_path = /opt/data
+
+[test]
+tp6cli	ansible_host=192.168.0.211
