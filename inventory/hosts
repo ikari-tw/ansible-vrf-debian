@@ -1,7 +1,12 @@
-# INVENTORY
+# OCR INVENTORY
 
 [all:vars]
 data_path = /opt/data
 
-[test]
+[ocr:children]
+tp6
+
+[tp6]
+tp6ans	ansible_host=192.168.0.212
 tp6cli	ansible_host=192.168.0.211
+

@@ -1,8 +1,8 @@
 ---
-# TEST
+# VRF DEPLOY
 
-- name: TEST
-  gather_facts: yes
+- name: Deploy mgmt VRF on Debian vanilla
+  #gather_facts: yes
   hosts: "tp6cli"
   become: true
 
